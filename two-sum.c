@@ -5,9 +5,9 @@ int * twoSum(int* nums, int numsSize, int target);
 
 
 int main (int argn, char **argv){
-  int nums[] = {2, 7, 14, 1};
-  int target = 8;
-  int numsSize = 4;
+  int nums[] = {-1,-2,-3,-4,-5};
+  int target = -8;
+  int numsSize = 5;
 
   int *result = twoSum(nums, numsSize, target);
   if (result != NULL && nums[result[0]] + nums[result[1]] == target) {
@@ -31,11 +31,10 @@ int * twoSum(int* nums, int numsSize, int target) {
 
     for(i = 0; i < numsSize; i++){
 
-      if(nums[i] < target){
+      // Only applies in case there's only postive integers
+      // if(nums[i]) <= target){
         for (j = i+1; j < numsSize; j++) {
-
           candidate = nums[i] + nums[j];
-
           if (candidate == target) {
             solution[0] = i;
             solution[1] = j;
@@ -43,8 +42,7 @@ int * twoSum(int* nums, int numsSize, int target) {
           }
 
         }
-      }
+      // }
     }
-
     return NULL;
 }
