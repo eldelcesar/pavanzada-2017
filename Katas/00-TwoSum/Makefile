@@ -1,13 +1,21 @@
-CC = gcc
-CFLAGS=-I
-DEPS = two-sum.h
-OBJ = two-sum.o two-sum-main.o
+all:
+	 gcc -c two-sum.c
+	 gcc -c main.c
+	 gcc -o main two-sum.o main.o
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CLFAGS)
+test_two-sum: clean
+	 gcc -c two-sum.c
+	 gcc -c test_two-sum.c
+	 gcc -o test_two-sum.exe two-sum.o test_two-sum.o
+	 ./test_two-sum.exe
 
-two-sum.exe: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+test:	 test_two-sum
 
 clean:
-	rm *.o *.exe
+	 rm *.out *.o *.exe || exit 0
+
+run:
+	 gcc -c two-sum.c
+	 gcc -c main.c
+	 gcc -o main.exe two-sum.o main.o
+	 ./main

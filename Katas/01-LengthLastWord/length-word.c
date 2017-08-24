@@ -1,21 +1,33 @@
-#include <stdio.h>
 #include <stdlib.h>
-
-int main (int argn, char** argv){
-  int length;
-  length = lengthOfLastWord("Hello World");
-  printf("result: %d\n", length);
-  return 0;
-}
+#include <stdio.h>
+#include "length-word.h"
 
 int lengthOfLastWord(char* s) {
-  int i, j, last, length;
+  int i, j, length, count, startCount;
+  // Count will save the size of the last word
+  // Start Count will determine when the last word actually starts (from right to left)
+  count = 0;
+  startCount = 0;
 
+  // Get the lenght of the complete string
   for(i = 0; s[i] != '\0'; i++){}
-  last = i;
+  length = i;
 
-  for(j = last; s[j] != ' '; j--){}
-  length = last - j - 1;
+  // In case the string is not empty
+  if (length > 0) {
+    // Traverse the char array from back to front
+    for (j = (length-1); j >= 0; j--) {
 
-  return length;
+      // When it detects the last letter of the last word, starts the real count
+      if (s[j] != ' ') {
+        startCount = 1;
+        count++;
+      }
+      // In case the real count already started and an empty space is found, it stops
+      if (s[j] == ' ' && startCount == 1) {
+        return count;
+      }
+    }
+  }
+  return count;
 }
