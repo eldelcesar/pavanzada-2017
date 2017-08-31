@@ -17,7 +17,7 @@ int testsRun = 0;
 
 static char * testUnit() {
 
-  bool result = canConstruct("aa", "aab");
+  bool result = canConstruct("aa", "ab");
   muAssert("error, testUnit 1 != 1", result);
   return 0;
 }
