@@ -2,6 +2,7 @@
 #include "minunit.h"
 #include "ransome-note.h"
 #include <stdbool.h>
+#include <string.h>
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -17,8 +18,11 @@ int testsRun = 0;
 
 static char * testUnit() {
 
-  bool result = canConstruct("aa", "ab");
-  muAssert("error, testUnit 1 != 1", result);
+  char* ransome = "aa";
+  char* magazine = "ab";
+
+  bool result = canConstruct(ransome, magazine);
+  muAssert("Error, you cannot construct ", result);
   return 0;
 }
 

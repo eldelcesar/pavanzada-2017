@@ -6,7 +6,6 @@
 bool canConstruct(char* ransomNote, char* magazine){
 
   int count, i, j;
-
   count = 0;
 
   for (i = 0; ransomNote[i] != '\0'; i++) {
