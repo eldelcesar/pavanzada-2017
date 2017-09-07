@@ -18,7 +18,7 @@
  * @return:
  *  result: the array of arrays with the pair of indices of words that form palindromes
 */
-int** palindromePairs(char **words, int wordsSize, int **columnSizes, int *returnSize) {
+int** palindromePairs(char **words, int wordsSize, int **columnSizes, int *returnSize, int *errorCode) {
   int **result;
   int length;
   int countPalindromes;
@@ -31,11 +31,19 @@ int** palindromePairs(char **words, int wordsSize, int **columnSizes, int *retur
   for (int x = 0; x < *returnSize; x++) {
     *columnSizes[x] = 2;
   }
+  // Check errors of init
+  if (*columnSizes == NULL) {
+    *errorCode = 100;
+  }
 
   // Init Result
   result = (int**)calloc(*returnSize, sizeof(int*));
   for (int y = 0; y < *returnSize; y++) {
     result[y] = (int*)calloc(*columnSizes[y], sizeof(int));
+  }
+  // Check errors of init
+  if (*columnSizes == NULL) {
+    *errorCode = 100;
   }
 
   // Magic Box
@@ -45,11 +53,20 @@ int** palindromePairs(char **words, int wordsSize, int **columnSizes, int *retur
       if (i != j) {
         length = strlen(words[i]) + strlen(words[j]);
 
+        // Check errors for empty/null words
+        if (strlen(words[j]) == 0 || words[i] == NULL) {
+          *errorCode = 200;
+        }
+        if (strlen(words[j]) == 0 || words[j] == NULL) {
+          *errorCode = 200;
+        }
+
         // Creates the word (possible palindrome)
         char palindrome[length];
         strcpy(palindrome, words[i]);
         strcat(palindrome, words[j]);
         printf("[%d,%d] Word: %s\n", i, j, palindrome);
+
 
         // Checks if word is actually a palindrome
         if (isPalindrome(palindrome, length)) {

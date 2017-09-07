@@ -23,6 +23,7 @@ static char * testPalindromePairsUnit() {
   int **result;
   int **expected;
   int isCorrect;
+  int errorCode;
 
   /* CASE 1
    * words = ["abcd", "dcba", "lls", "s", "sssll"]
@@ -37,6 +38,7 @@ static char * testPalindromePairsUnit() {
     expected[i] = (int*)calloc(2, sizeof(int));
   }
   isCorrect = 1;
+  errorCode = 0;
 
   // Define words array
   wordsSize = 5;
@@ -55,7 +57,7 @@ static char * testPalindromePairsUnit() {
   expected[3][1] = 2;
 
   // Get Result
-  result = palindromePairs(words, wordsSize, columnSizes, returnSize);
+  result = palindromePairs(words, wordsSize, columnSizes, returnSize, &errorCode);
 
   // Verify result
   for (int i = 0; i < *returnSize; i++) {
@@ -67,7 +69,8 @@ static char * testPalindromePairsUnit() {
     }
   }
 
-  muAssert("Error, [0,1], [1,0], [2,4], [3,2] was expected", isCorrect);
+  muAssert("Inner Error: Error code must be 0", errorCode == 0);
+  muAssert("Result Error: Result = [0,1], [1,0], [2,4], [3,2] was expected", isCorrect);
   return 0;
 }
 
