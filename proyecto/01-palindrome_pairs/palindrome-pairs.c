@@ -3,82 +3,127 @@
 #include <string.h>
 #include "palindrome-pairs.h"
 
-/**
- * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
- * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
- */
-int** palindromePairs(char** words, int wordsSize, int** columnSizes, int* returnSize) {
+/**************************
+ * palindromePairs
+ *
+ * Given a set of unique words, determine the distinct indices(i, j) in the given
+ * list that, when concatenated, are palindromes
+ *
+ * @param:
+ *  words: array of words
+ *  wordsSize: size of the array 'words'
+ *  columnSizes: array of the number of columns of each result
+ *  returnSize: the size of the resulting array
+ *
+ * @return:
+ *  result: the array of arrays with the pair of indices of words that form palindromes
+*/
+int** palindromePairs(char **words, int wordsSize, int **columnSizes, int *returnSize) {
   int **result;
-  int length, half;
-  int i,j,k;
-  int isPalindrome;
+  int length;
   int countPalindromes;
 
+  // Init Parameters
   countPalindromes = 0;
 
-  // Init the columnSizes array
+  // Init Columns
   *columnSizes = (int*)calloc(*returnSize, sizeof(int));
   for (int x = 0; x < *returnSize; x++) {
     *columnSizes[x] = 2;
   }
 
-  // Init the results array
+  // Init Result
   result = (int**)calloc(*returnSize, sizeof(int*));
   for (int y = 0; y < *returnSize; y++) {
     result[y] = (int*)calloc(*columnSizes[y], sizeof(int));
   }
 
-  for (i = 0; i < wordsSize; i++) {
-    //printf("Word %d: %s\n", i, words[i]);
-    for (j = 0; j < wordsSize; j++) {
+  // Magic Box
+  for (int i = 0; i < wordsSize; i++) {
+    for (int j = 0; j < wordsSize; j++) {
       // Must be different indices
       if (i != j) {
-        // Calculates the length and the exact half
         length = strlen(words[i]) + strlen(words[j]);
-        if (length%2 == 1) {
-          half = (length-1)/2;
-        } else{
-          half = length/2;
-        }
 
-        // Will be checking if word is palindrome
-        isPalindrome = 0;
-
-        // Creates the possible palindrome
+        // Creates the word (possible palindrome)
         char palindrome[length];
         strcpy(palindrome, words[i]);
         strcat(palindrome, words[j]);
-        // printf("[%d,%d] Word: %s\n", i, j, palindrome);
+        printf("[%d,%d] Word: %s\n", i, j, palindrome);
 
-        // Checks if word is palindrome
-        for (k = 0; k < half; k++) {
-          // printf("%c is equal to %c? ", palindrome[k], palindrome[length-1-k]);
-          if (palindrome[k] == palindrome[length-1-k]) {
-            //printf("True\n");
-            isPalindrome = 1;
-          } else{
-            isPalindrome = 0;
-            //printf("False\n\n");
-            break;
-          }
-        }
-        if (isPalindrome) {
+        // Checks if word is actually a palindrome
+        if (isPalindrome(palindrome, length)) {
           result[countPalindromes][0] = i;
           result[countPalindromes][1] = j;
           countPalindromes++;
-          // printf("%s is a palindrome\n", palindrome);
+          printf("%s is a palindrome\n", palindrome);
         }
       }
     }
   }
 
-  // printResult(result, *returnSize, 2);
+  // Prints the result
+  printResult(result, *returnSize, 2);
   return result;
 }
 
 
 
+/**************************
+ * isPalindrome
+ *
+ * Given a word, determine if the word is a palindrome
+ *
+ * @param:
+ *  palindrome: word that could be a palindrome
+ *  length: length of the word
+ *
+ * @return:
+ *  isPalindrome: if == 1 the word is a palindrome; otherwise it's not
+*/
+int isPalindrome(char* palindrome, int length){
+  int half, i, isPalindrome;
+
+  isPalindrome = 0;
+
+  // Get Half
+  if (length%2 == 1) {
+    half = (length-1)/2;
+  } else{
+    half = length/2;
+  }
+
+  // Check if it's a palindrome
+  for (i = 0; i < half; i++) {
+    printf("%c is equal to %c? ", palindrome[i], palindrome[length-1-i]);
+    if (palindrome[i] == palindrome[length-1-i]) {
+      isPalindrome = 1;
+      printf("True\n");
+    } else{
+      isPalindrome = 0;
+      printf("False\n\n");
+      break;
+    }
+  }
+
+  return isPalindrome;
+}
+
+
+
+/**************************
+ * printResult
+ *
+ * Prints the given array of arrays with the result
+ *
+ * @param:
+ *  result: the array of arrays of int with the result
+ *  rows: number of rows in the result
+ *  columns: number of columns in the result
+ *
+ * @return:
+ *  none
+*/
 void printResult(int** result, int rows, int columns){
   printf("Result: ");
   for (int i = 0; i < rows; i++) {

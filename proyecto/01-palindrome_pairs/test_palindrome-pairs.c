@@ -14,7 +14,7 @@
 #define RESET "\033[0m"
 
 int testsRun = 0;
-// int wordsSize, int** columnSizes, int* returnSize
+
 static char * testPalindromePairsUnit() {
   char **words;
   int wordsSize;
@@ -22,28 +22,52 @@ static char * testPalindromePairsUnit() {
   int **columnSizes;
   int **result;
   int **expected;
+  int isCorrect;
 
   /* CASE 1
-  returnSize = 2;
+   * words = ["abcd", "dcba", "lls", "s", "sssll"]
+   * result = [0,1], [1,0], [2,4], [3,2]
+  */
 
-  wordsSize = 3;
-  words = (char**)calloc(wordsSize, sizeof(char*));
-  // ["bat", "tab", "cat"]
-  words[0] = "bat"; words[1] = "tab"; words[2] = "cat";*/
-
-  /* CASE 2 */
+  // Init variables
   returnSize = (int*)malloc(sizeof(int));
   *returnSize = 4;
+  expected = (int**)calloc(*returnSize, sizeof(int*));
+  for (int i = 0; i < *returnSize; i++) {
+    expected[i] = (int*)calloc(2, sizeof(int));
+  }
+  isCorrect = 1;
 
+  // Define words array
   wordsSize = 5;
   words = (char**)calloc(wordsSize, sizeof(char*));
-  // ["abcd", "dcba", "lls", "s", "sssll"]
-  words[0] = "abcd"; words[1] = "dcba"; words[2] = "lls"; words[3] = "s"; words[4] = "sssll";
+  words[0] = "abcd"; words[1] = "dcba";
+  words[2] = "lls"; words[3] = "s"; words[4] = "sssll";
 
-  expected = (int**)calloc(*returnSize, sizeof(int*));
+  // Define expected result
+  expected[0][0] = 0;
+  expected[0][1] = 1;
+  expected[1][0] = 1;
+  expected[1][1] = 0;
+  expected[2][0] = 2;
+  expected[2][1] = 4;
+  expected[3][0] = 3;
+  expected[3][1] = 2;
+
+  // Get Result
   result = palindromePairs(words, wordsSize, columnSizes, returnSize);
 
-  muAssert("Error, wtf", result == expected);
+  // Verify result
+  for (int i = 0; i < *returnSize; i++) {
+    for (int j = 0; j < 2; j++) {
+      if (expected[i][j] != result[i][j]) {
+        isCorrect = 0;
+        break;
+      }
+    }
+  }
+
+  muAssert("Error, [0,1], [1,0], [2,4], [3,2] was expected", isCorrect);
   return 0;
 }
 
