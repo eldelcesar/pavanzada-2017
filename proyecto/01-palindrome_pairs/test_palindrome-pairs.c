@@ -57,6 +57,8 @@ static char * testPalindromePairsUnit() {
   expected[3][1] = 2;
 
   // Get Result
+  printf("\nWords = [abcd', 'dcba', 'lls', 's', 'sssll']\n");
+  printf("Expected result = [0,1], [1,0], [2,4], [3,2]\n\n");
   result = palindromePairs(words, wordsSize, columnSizes, returnSize, &errorCode);
 
   // Verify result
@@ -73,6 +75,7 @@ static char * testPalindromePairsUnit() {
   muAssert("Result Error: Result = [0,1], [1,0], [2,4], [3,2] was expected", isCorrect);
   return 0;
 }
+
 
 static char * allTests() {
   muRunTest(testPalindromePairsUnit);

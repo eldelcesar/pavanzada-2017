@@ -28,31 +28,46 @@ static char * testInitDictionary() {
   muAssert("Dictionary size must be 4", myDictionary->size == 4);
   muAssert("Dictionary errorCode must be 0", errorCode == 0);
   return 0;
-
 }
 
 // Tests that we can upsert correctly
 // PASSED: upsert the correct key/value pair
 // WHTIE BOX TEST
-static char * testUpsertDictionary() {
-
+static char *testUpsertDictionary(){
   unsigned int size = 1;
   int errorCode;
   Dict *myDictionary = initDictionary(size, &errorCode);
   int value = 1;
-  upsertDictionary(myDictionary, "uno", (void*) &value, &errorCode);
+  upsertDictionary(myDictionary, "uno", (void *)&value, sizeof(int), &errorCode);
 
-  muAssert("Dictionary errorCode must be 0", errorCode == 0);
-  muAssert("Dictionary key must be uno", strcmp(myDictionary->elements[0].key, "uno") == 0);
-  muAssert("Dictionary value must be 1", *((int*) myDictionary->elements[0].value) == value);
-
+  muAssert("myDictionary errorCode must be 0", errorCode == 0);
+  muAssert("myDictionary errorCode must be 0", strcmp(myDictionary->elements[0].key, "uno") == 0);
+  muAssert("myDictionary errorCode must be 0", *((int *)myDictionary->elements[0].value) == value);
   return 0;
+}
 
+// Tests that we can upsert correctly
+// PASSED: upsert the correct key/value pair
+// WHTIE BOX TEST
+static char *testGetDictionary(){
+  unsigned int size = 1;
+  int errorCode;
+  Dict *myDictionary = initDictionary(size, &errorCode);
+  int value = 1;
+  upsertDictionary(myDictionary, "uno", (void *)&value,sizeof(int), &errorCode);
+  void *result = getDictionary(myDictionary, "uno", sizeof(int), &errorCode);
+  value = 27;
+
+  muAssert("myDictionary errorCode must be 0", errorCode == 0);
+  printf("%d\n", *((int *)result));
+  muAssert("result must be equal to value", *((int *)result) == 1);
+  return 0;
 }
 
 static char * allTests() {
   muRunTest(testInitDictionary);
   muRunTest(testUpsertDictionary);
+  muRunTest(testGetDictionary);
   return 0;
 }
 

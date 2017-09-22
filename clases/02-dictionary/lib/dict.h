@@ -8,5 +8,6 @@ typedef struct dict{
   unsigned int size;
 } Dict;
 
-Dict* initDictionary(unsigned int, int*);
-void upsertDictionary(Dict*, char*, void*, int*);
+Dict * initDictionary(unsigned int,int *);
+void upsertDictionary(Dict *, char *,void *,int,int *);
+void * getDictionary(Dict *,char *, int, int *);
