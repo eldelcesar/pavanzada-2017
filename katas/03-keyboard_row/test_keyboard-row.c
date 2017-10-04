@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "minunit.h"
 #include "keyboard-row.h"
 
@@ -15,6 +16,26 @@
 int testsRun = 0;
 
 static char * testUnit() {
+  char** words;
+  char** expected;
+  int wordsSize;
+  int returnSize;
+  int errorCode;
+
+
+  wordsSize = 4;
+  returnSize = 2;
+  errorCode = 0;
+  words = (char**)calloc(wordsSize, sizeof(char*));
+  words[0] = "Hello"; words[1] = "Alaska"; words[2] = "Dad"; words[3] = "Peace";
+
+  expected = (char**)calloc(returnSize, sizeof(char*));
+  expected = findWords(words, wordsSize, &returnSize, &errorCode);
+
+  for (int i = 0; i < returnSize; i++) {
+    printf("%s\n", expected[i]);
+  }
+
   muAssert("error, testUnit 1 != 1", 1 == 1);
   return 0;
 }
