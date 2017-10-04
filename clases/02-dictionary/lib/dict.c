@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "dict.h"
 
 Dict* initDictionary(unsigned int size, int *errorCode){
@@ -35,6 +36,7 @@ static unsigned hash(char *s, unsigned int size){
   return hashval % size;
 }
 
+
 void upsertDictionary(Dict *dictionary, char* key, void* value, int size, int *errorCode){
   if (dictionary == NULL) {
     *errorCode = 100;
@@ -63,6 +65,8 @@ void upsertDictionary(Dict *dictionary, char* key, void* value, int size, int *e
   memcpy(dictionary->elements[index].value,value,size);
   *errorCode = 0;
 }
+
+
 
 void * getDictionary(Dict *dictionary, char* key, int size, int *errorCode){
   if (dictionary == NULL) {
