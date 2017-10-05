@@ -3,6 +3,17 @@
 #include <string.h>
 #include "keyboard-row.h"
 
+
+/* FIND WORDS
+ * Finds if a word can be written with characters in 
+ * a single keyboard row
+ * @param:
+ *  - words: list of words
+ *  - wordsSize: the size of the words list
+ *. - returnSize: size of the resultant words array
+ *. - errorCode: to check errors
+ * @return: resultant array of words that can be written in single keyboard row
+ * */
 char** findWords(char** words, int wordsSize, int* returnSize, int* errorCode) {
 
   char** result;
@@ -22,11 +33,15 @@ char** findWords(char** words, int wordsSize, int* returnSize, int* errorCode) {
     }
 
   }
-  result = (char**)calloc(*returnSize, sizeof(char*));
+
   return result;
 }
 
 
+/* IS WORD IN SINGLE ROW
+* Checks if a word can be written in either of the 3 rows in keyboard
+* @param: word and word length
+* @return: 1 if it can be written in one row, 0 otherwise*/
 int isWordInSingleRow(char** word, int* wordLength){
   const int rowsNumber = 3;
   const char ROW_ONE[20] = {'Q', 'q', 'W', 'w', 'E', 'e', 'R', 'r', 'T', 't',
