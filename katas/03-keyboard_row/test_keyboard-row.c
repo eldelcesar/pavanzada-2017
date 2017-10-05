@@ -18,6 +18,7 @@ int testsRun = 0;
 static char * testUnit() {
   char** words;
   char** expected;
+  char** result;
   int wordsSize;
   int returnSize;
   int errorCode;
@@ -30,10 +31,13 @@ static char * testUnit() {
   words[0] = "Hello"; words[1] = "Alaska"; words[2] = "Dad"; words[3] = "Peace";
 
   expected = (char**)calloc(returnSize, sizeof(char*));
-  expected = findWords(words, wordsSize, &returnSize, &errorCode);
+  expected[0] = "Alaska"; expected[1] = "Dad";
+  
+  reault = (char**)calloc(returnSize, sizeof(char*));
+  result = findWords(words, wordsSize, &returnSize, &errorCode);
 
   for (int i = 0; i < returnSize; i++) {
-    printf("%s\n", expected[i]);
+    printf("%s\n", result[i]);
   }
 
   muAssert("error, testUnit 1 != 1", 1 == 1);
