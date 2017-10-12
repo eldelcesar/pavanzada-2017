@@ -14,52 +14,43 @@
  *  integer with the perimeter of the island
 */
 int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
-  int result;
+  int result, rowSize, colSize;
   result = 0;
+
+  rowSize = gridRowSize-1;
+  colSize = gridColSize-1;
 
   for (int i = 0; i < gridRowSize; i++) {
     for (int j = 0; j < gridColSize; j++) {
+      // Check if there are any island-sea borders
+      if (j != colSize) {
+        if (grid[i][j+1] != grid[i][j]) {
+          result++;
+        }
+      }
+      if (i != rowSize) {
+        if (grid[i+1][j] != grid[i][j]) {
+          result++;
+        }
+      }
 
-      switch (grid[i][j]) {
-        case 1:
-          if (j != gridColSize-1) {
-            if (grid[i][j+1] == 0) {
-              result++;
-            }
-          }
-          if (i != gridRowSize-1) {
-            if (grid[i+1][j] == 0) {
-              result++;
-            }
-          }
-          if (i == 0) {
-            result++;
-          }
-          if (i == gridRowSize-1) {
-            result++;
-          }
-          if (j == 0) {
-            result++;
-          }
-          if (j == gridColSize-1) {
-            result++;
-          }
-          break;
-          
-        case 0:
-          if (j != gridColSize-1) {
-            if (grid[i][j+1] == 1) {
-              result++;
-            }
-          }
-          if (i != gridRowSize-1) {
-            if (grid[i+1][j] == 1) {
-              result++;
-            }
-          }
-          break;
+      // Check special cases
+      if (grid[i][j]) {
+        if (i == 0) {
+          result++;
+        }
+        if (i == rowSize) {
+          result++;
+        }
+        if (j == 0) {
+          result++;
+        }
+        if (j == colSize) {
+          result++;
+        }
       }
     }
   }
+  // printf("Result: %d\n", result);
   return result;
 }
