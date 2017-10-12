@@ -20,6 +20,8 @@ int islandPerimeter(int** grid, int gridRowSize, int gridColSize) {
   rowSize = gridRowSize-1;
   colSize = gridColSize-1;
 
+  if (gridRowSize*gridColSize < 1){return 0;};
+
   for (int i = 0; i < gridRowSize; i++) {
     for (int j = 0; j < gridColSize; j++) {
       // Check if there are any island-sea borders

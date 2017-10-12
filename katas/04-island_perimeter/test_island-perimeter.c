@@ -48,7 +48,7 @@ static char * testUnit() {
   expected = 16;
   result = islandPerimeter(grid, gridRowSize, gridColSize);
 
-  muAssert("error, testUnit 1 != 1", expected == result);
+  muAssert("error, expected result was 16", expected == result);
   return 0;
 }
 
