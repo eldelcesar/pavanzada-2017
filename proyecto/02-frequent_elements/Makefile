@@ -12,7 +12,7 @@ test_frequent-elements: clean
 test:	 test_frequent-elements
 
 clean:
-	 rm *.out *.o *.exe || exit 0
+	 rm *.out test_frequent-elements.o *.exe || exit 0
 
 run:
 	 gcc -c frequent-elements.c

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "minunit.h"
-#include "frequent-elements.h"
+#include "palindromes.h"
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -15,21 +15,6 @@
 int testsRun = 0;
 
 static char * testUnit() {
-
-  int numsSize = 6;
-  int returnSize = 2;
-  int k = 2;
-  int *nums = (int*) calloc(numsSize, sizeof(int));
-  int *expected = (int*) calloc(returnSize, sizeof(int));
-  int *result;
-  int errorCode = 0;
-
-  nums[0] = 1; nums[1] = 1; nums[2] = 1;
-  nums[3] = 2; nums[4] = 2;
-  nums[5] = 3;
-
-  result = topKFrequent(nums, numsSize, k, &returnSize, &errorCode);
-
   muAssert("error, testUnit 1 != 1", 1 == 1);
   return 0;
 }
