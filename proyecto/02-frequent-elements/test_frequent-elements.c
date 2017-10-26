@@ -26,9 +26,9 @@ static char * testUnit() {
   int errorCode = 0;
   int flag;
 
-  nums[0] = 1; nums[1] = 1; nums[2] = 1;
-  nums[3] = 2; nums[4] = 2;
-  nums[5] = 3;
+  nums[0] = 3; nums[1] = 2; nums[2] = 1;
+  nums[3] = 2; nums[4] = 1;
+  nums[5] = 1;
 
   expected[0] = 1; expected[1] = 2;
   result = topKFrequentNumbers(nums, numsSize, k, &returnSize, &errorCode);

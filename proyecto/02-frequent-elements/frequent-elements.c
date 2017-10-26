@@ -45,13 +45,37 @@ int* topKFrequentNumbers(int* nums, int numsSize, int k, int* returnSize, int* e
   totalNums = 0;
   result = (int*) calloc(*returnSize, sizeof(int));
   sortedNums = sortArray(nums, numsSize);
-  rankedNums = rankNumbers(numsSize, nums, &totalNums);
+  rankedNums = rankNumbers(numsSize, sortedNums, &totalNums);
+
+  printf("\nOriginal Array: \n[");
+  for (int i = 0; i < numsSize; i++) {
+    if (i != numsSize-1) {
+      printf("%d, ", nums[i]);
+    } else{
+      printf("%d", nums[i]);
+    }
+  }
+  printf("]\n\n");
+
+  printf("Sorted Array:\n[");
+  for (int i = 0; i < numsSize; i++) {
+    if (i != numsSize-1) {
+      printf("%d, ", sortedNums[i]);
+    } else{
+      printf("%d", sortedNums[i]);
+    }
+  }
 
   qsort(rankedNums, numsSize, sizeof(Number), cmpNumbers);
 
+  printf("]\n\n");
+
+  printf("Top K Elements:\n");
   for (int j = 0; j < k; j++) {
     result[j] = rankedNums[j].key;
+    printf("%d\n", result[j]);
   }
+  printf("\n");
   return result;
 }
 
