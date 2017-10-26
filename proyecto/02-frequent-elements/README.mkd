@@ -1,5 +1,5 @@
 
-# ../proyecto/02-frequent_elements
+# ../proyecto/02-frequent-elements
 
 # How to compile
 make run
